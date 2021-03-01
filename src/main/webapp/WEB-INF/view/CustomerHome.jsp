@@ -17,6 +17,10 @@
 			<div class="card-body">
 				<form action="http://localhost:8080/pay" method="post">
 					<div class="form-group">
+						<label for="senderAccountBalance">Available balance</label> 
+						<input type="text" class="form-control" id="senderAccountBalance" name="senderAccountBalance" value="${user.amount}" readonly>
+					</div>
+					<div class="form-group">
 						<label for="senderUserId">Sender User ID</label> 
 						<input type="text" class="form-control" id="senderUserId" name="senderUserId" value="${user.userId}" readonly>
 					</div>

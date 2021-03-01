@@ -2,6 +2,8 @@ package com.project.springboot.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,11 +49,13 @@ public class UserController {
 	}
 	@RequestMapping("/bankhome")
 	public ModelAndView getBankCredentials(@RequestParam("bic") String bic,@RequestParam("password")String password) {
+		List<Transaction>pendingTransaction=new ArrayList<>();
 		ModelAndView modelAndView;
 		boolean result=bankService.checkBankCredentials(bic, password);
 		if(result) {
-			
+			pendingTransaction=bankService.getPendingTransaction(bic, "PENDING");
 			modelAndView=new ModelAndView("BankHome");
+			modelAndView.addObject("pendingTransaction",pendingTransaction);
 		}
 		else {
 			modelAndView=new ModelAndView("IncorrectCredentials");
@@ -60,32 +64,40 @@ public class UserController {
 	}
 	
 	@RequestMapping("/pay")
-	public ModelAndView doPayment(@RequestParam("senderUserId") String senderUserId,@RequestParam("senderAccountNumber") 
+	public ModelAndView doPayment(@RequestParam("senderAccountBalance") String AvailableBalance,@RequestParam("senderUserId") String senderUserId,@RequestParam("senderAccountNumber") 
 			String senderAccountNumber,@RequestParam("senderName") String senderName, 
 			@RequestParam("beneficiaryUserId") String beneficiaryUserId, @RequestParam("senderBankCode") String senderBankCode,
 			@RequestParam("beneficiaryName") String beneficiaryName,@RequestParam("receiverMobileNumber") 
 			String receiverMobileNumber, @RequestParam("bic") String bic,@RequestParam("beneficiaryAccountNumber")
 			String beneficiaryAccountNumber,@RequestParam("amount") String amount) {
 		
-		String orderingCustomer=senderName+","+senderAccountNumber+senderUserId;
-		String beneficiaryCustomer=beneficiaryName+","+beneficiaryAccountNumber+","+beneficiaryUserId;
-		
-		Transaction transaction=new Transaction();
-		transaction.setOrderingCustomer(orderingCustomer);
-		transaction.setBeneficiaryCustomer(beneficiaryCustomer);
-		transaction.setSendingInstitution(senderBankCode);
-		transaction.setAccountWithInstitution(bic);
-		transaction.setAmount(Double.valueOf(amount));
-		transaction.setStatus("PENDING");
-		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-		LocalDateTime now = LocalDateTime.now();  
-		transaction.setDate((dtf.format(now)));  
-		
-		customerService.saveTransaction(transaction);
-		
-		ModelAndView modelAndView=new ModelAndView("PaymentConfirmation");
-		modelAndView.addObject("transaction",transaction);
+		ModelAndView modelAndView;
+		if(Double.valueOf(AvailableBalance)<Double.valueOf(amount)) {
+			modelAndView=new ModelAndView("WrongData");
+		}
+		else {
+			
+			
+			String orderingCustomer=senderName+","+senderAccountNumber+","+senderUserId;
+			String beneficiaryCustomer=beneficiaryName+","+beneficiaryAccountNumber+","+beneficiaryUserId;
+			
+			Transaction transaction=new Transaction();
+			transaction.setOrderingCustomer(orderingCustomer);
+			transaction.setBeneficiaryCustomer(beneficiaryCustomer);
+			transaction.setSendingInstitution(senderBankCode);
+			transaction.setAccountWithInstitution(bic);
+			transaction.setAmount(Double.valueOf(amount));
+			transaction.setStatus("PENDING");
+			
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+			LocalDateTime now = LocalDateTime.now();  
+			transaction.setDate((dtf.format(now)));  
+			
+			customerService.saveTransaction(transaction);
+			
+			modelAndView=new ModelAndView("PaymentConfirmation");
+			modelAndView.addObject("transaction",transaction);
+		}
 		return modelAndView;
 	}
 }

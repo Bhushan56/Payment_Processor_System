@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +12,16 @@
 	<style>
 		.subheader-align{
 			text-align:right;
+			font-weight:700;
 		}
 		.card{
 			width:100%;
 		}
 		.data-header-align{
 			text-align:left;
+		}
+		.f-align{
+			padding-left:40%;
 		}
 	</style>
 </head>
@@ -26,67 +33,81 @@
 		</div>
 		
 		<div class="row" id="paymentStatus">
-				<div class="card">
-					<div class="card-header text-center">Customer Name And Account Number</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="subheader-align col-lg-6">
-								Sender's Reference Number:-
+				<c:forEach var="payment" items="${pendingTransaction}">
+					<div class="card mb-5">
+						<div class="card-header text-center font-weight-bold"> ${payment.orderingCustomer.split(",")[0]}(${payment.orderingCustomer.split(",")[1]}) </div>
+						<div class="card-body">
+							<div class="row">
+								<div class="subheader-align col-lg-6">
+									(20)Sender's Reference Number:-
+								</div>
+								<div class="header-data-align col-lg-6">
+									${payment.senderReference}
+								</div>
 							</div>
-							<div class="header-data-align col-lg-6">
-								Transaction Id
+							<div class="row">
+								<div class="subheader-align col-lg-6">
+									(32a)Date:-
+								</div>
+								<div class="header-data-align col-lg-6">
+									${payment.date }
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="subheader-align col-lg-6">
-								Date:-
+							<div class="row">
+								<div class="subheader-align col-lg-6">
+									(32a)Amount:-
+								</div>
+								<div class="header-data-align col-lg-6">
+									${payment.amount }
+								</div>
 							</div>
-							<div class="header-data-align col-lg-6">
-								date
+							<div class="row">
+								<div class="subheader-align col-lg-6">
+									(50a)Ordering Customer:-
+								</div>
+								<div class="header-data-align col-lg-6">
+									${payment.orderingCustomer}
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="subheader-align col-lg-6">
-								Amount:-
+							<div class="row">
+								<div class="subheader-align col-lg-6">
+									(51a)Sending Institution:-
+								</div>
+								<div class="header-data-align col-lg-6">
+									${payment.sendingInstitution }
+								</div>
 							</div>
-							<div class="header-data-align col-lg-6">
-								amount
+							<div class="row">
+								<div class="subheader-align col-lg-6">
+									(57a)Account With Institution:-
+								</div>
+								<div class="header-data-align col-lg-6">
+									${payment.accountWithInstitution }
+								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="subheader-align col-lg-6">
-								Ordering Customer:-
+							<div class="row">
+								<div class="subheader-align col-lg-6">
+									(59a)Beneficiary Customer:-
+								</div>
+								<div class="header-data-align col-lg-6">
+									${payment.beneficiaryCustomer }
+								</div>
 							</div>
-							<div class="header-data-align col-lg-6">
-								Name,Account Number,User id
+							<div class="row f-align">
+								<form action="http://localhost:8080/approve" method="post">
+									<input type="hidden" name="t_id" value=${payment.senderReference }/>
+									<input type="submit" class="btn btn-md btn-success" value="approve"/>
+								</form>
+								<form action="http://localhost:8080/reject" method="post">
+									<input type="hidden" name="t_id" value=${payment.senderReference }/>
+									<input type="submit" class="btn btn-md btn-danger" value="reject"/>
+								</form>
 							</div>
-						</div>
-						<div class="row">
-							<div class="subheader-align col-lg-6">
-								Sending Institution:-
-							</div>
-							<div class="header-data-align col-lg-6">
-								Name,Bic number
-							</div>
-						</div>
-						<div class="row">
-							<div class="subheader-align col-lg-6">
-								Account With Institution:-
-							</div>
-							<div class="header-data-align col-lg-6">
-								name,Bic number
-							</div>
-						</div>
-						<div class="row">
-							<div class="subheader-align col-lg-6">
-								Beneficiary Customer:-
-							</div>
-							<div class="header-data-align col-lg-6">
-								name,Account Number,User id
-							</div>
+							
+							
 						</div>
 					</div>
-				</div>
+				</c:forEach>
 		</div>
 		
 		<div class="row" id="paymentTransfer">

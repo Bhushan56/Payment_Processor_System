@@ -41,6 +41,8 @@ public class Transaction {
 	
 	@Column
 	private String beneficiaryCustomer ;
+	
+	@Column
 	private String date ;
 	
 	@Column
