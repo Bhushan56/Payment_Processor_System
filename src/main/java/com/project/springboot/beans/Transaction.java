@@ -1,5 +1,6 @@
 package com.project.springboot.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,12 +29,24 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int senderReference ;
+	
+	@Column
 	private String orderingCustomer ;
+	
+	@Column
 	private String sendingInstitution;
+	
+	@Column
 	private String accountWithInstitution ;
+	
+	@Column
 	private String beneficiaryCustomer ;
 	private String date ;
+	
+	@Column
 	private Double amount ;
+	
+	@Column
 	private String Status ;
 	
 	public Transaction(int senderReference, String orderingCustomer, String sendingInstitution,
@@ -50,10 +63,8 @@ public class Transaction {
 	}
 	
 	public Transaction() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
-	
 	
 	public int getSenderReference() {
 		return senderReference;
