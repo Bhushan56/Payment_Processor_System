@@ -31,30 +31,37 @@ public class UserInfo {
 	
 	@Column(name="Name")
 	private String name;
+	
 	@Column(name="address")
 	private String address;
-	@Column(name="Mobile_Number")
-	private String mobieNumber;
+	
+	@Column(name="mobile_number")
+	private String mobileNumber;
+	
 	@Column(name="Email")
 	private String email;
+	
 	@Column(name="Password")
 	private String password ;
+	
 	@Column(name="BIC")
 	private String bic ;
-	@Column(name="AccountNumber")
-	private int accountNumber ;
+	
+	@Column(name="Account_number")
+	private String accountNumber ;
+	
 	@Column(name="Amount")
 	private double amount ;
 	
 	// Parameterized constructor
 	public UserInfo(int userId, String name, String address, String mobieNumber, String email, String password,
-			String bic, int accountNumber, double amount) {
+			String bic, String accountNumber, double amount) {
 		
 		super();
 		this.userId = userId;
 		this.name = name;
 		this.address = address;
-		this.mobieNumber = mobieNumber;
+		this.mobileNumber = mobieNumber;
 		this.email = email;
 		this.password = password;
 		this.bic = bic;
@@ -62,15 +69,12 @@ public class UserInfo {
 		this.amount = amount;
 	}
 	
-	
 	//default constructor
-	
 	public UserInfo() {
+		
 	}
-
-
-
-// getter and setters
+	
+	// getter and setters
 	public int getUserId() {
 		return userId;
 	}
@@ -90,10 +94,10 @@ public class UserInfo {
 		this.address = address;
 	}
 	public String getMobieNumber() {
-		return mobieNumber;
+		return mobileNumber;
 	}
 	public void setMobieNumber(String mobieNumber) {
-		this.mobieNumber = mobieNumber;
+		this.mobileNumber = mobieNumber;
 	}
 	public String getEmail() {
 		return email;
@@ -113,10 +117,10 @@ public class UserInfo {
 	public void setBic(String bic) {
 		this.bic = bic;
 	}
-	public int getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 	public double getAmount() {
