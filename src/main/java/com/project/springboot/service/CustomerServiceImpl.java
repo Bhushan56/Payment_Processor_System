@@ -1,4 +1,6 @@
 package com.project.springboot.service;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,12 @@ public class CustomerServiceImpl implements CustomerService{
 		 customerDao.saveTransaction(transaction);
 		
 	}
-	
-
+	 @Override
+	public boolean validateBenificiary(int beneficiaryUserId,String beneficiaryName,String receiverMobileNumber, String bic,String beneficiaryAccountNumber) {
+		 return customerDao.validateBenificiary(beneficiaryUserId, beneficiaryName, receiverMobileNumber, bic, beneficiaryAccountNumber);
+	 }
+	 @Override
+	 public List<Transaction> getTransaction(int userId,String status){
+		 return customerDao.getTransaction(userId,status);
+	 }
 }

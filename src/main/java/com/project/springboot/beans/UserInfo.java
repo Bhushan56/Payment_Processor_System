@@ -1,11 +1,22 @@
 package com.project.springboot.beans;
 
+ 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+ 
 
 /**
  * 
@@ -30,29 +41,40 @@ public class UserInfo {
 	private int userId ;
 	
 	@Column(name="Name")
+	@NotBlank(message = "can not be blank")
 	private String name;
 	
 	@Column(name="address")
+	@NotBlank(message = "can not be blank")
 	private String address;
 	
 	@Column(name="mobile_number")
+	@NotBlank(message = "can not be blank")
 	private String mobileNumber;
 	
 	@Column(name="Email")
+	@NotBlank(message = "can not be blank")
+	@Email
 	private String email;
 	
 	@Column(name="Password")
+	@NotBlank(message = "can not be blank")
 	private String password ;
 	
 	@Column(name="BIC")
+	@NotBlank(message = "can not be blank")
 	private String bic ;
 	
 	@Column(name="Account_number")
+	@NotBlank(message = "can not be blank")
 	private String accountNumber ;
 	
 	@Column(name="Amount")
+	@NotBlank(message = "can not be blank")
 	private double amount ;
-	
+	 
+    
+	 
 	// Parameterized constructor
 	public UserInfo(int userId, String name, String address, String mobieNumber, String email, String password,
 			String bic, String accountNumber, double amount) {

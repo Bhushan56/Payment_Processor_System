@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 
  * @author geete_p
@@ -30,25 +32,24 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int senderReference ;
 	
-	@Column
+	 
 	private String orderingCustomer ;
 	
-	@Column
+	 
 	private String sendingInstitution;
 	
-	@Column
+	 
 	private String accountWithInstitution ;
-	
-	@Column
+	 
 	private String beneficiaryCustomer ;
 	
-	@Column
+ 
 	private String date ;
 	
-	@Column
+	 
 	private Double amount ;
 	
-	@Column
+	 
 	private String Status ;
 	
 	public Transaction(int senderReference, String orderingCustomer, String sendingInstitution,

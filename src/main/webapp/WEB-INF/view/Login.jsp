@@ -41,6 +41,7 @@
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-lg btn-success" value="Log In"/>
+					 
 				</div>	
 			</form>
 		</div>

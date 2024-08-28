@@ -26,16 +26,20 @@ public class BankInfo {
 	private String bankAddress ;
 	private String password ;
 	private String country ;
+	private double balance;
 	
 	//parameterized constructor 
-	public BankInfo(String bic, String bankName, String bankAddress, String password, String country) {
+	public BankInfo(String bic, String bankName, String bankAddress, String password, String country, double balance) {
 		super();
 		this.bic = bic;
 		this.bankName = bankName;
 		this.bankAddress = bankAddress;
 		this.password = password;
 		this.country = country;
+		this.balance = balance;
 	}
+
+	
 
 	// default constructor
 	public BankInfo() {
@@ -84,7 +88,13 @@ public class BankInfo {
 		this.country = country;
 	}
 	
-	
+	public double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
 	
 	
 	

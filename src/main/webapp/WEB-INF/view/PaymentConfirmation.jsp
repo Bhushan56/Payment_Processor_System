@@ -218,7 +218,7 @@ h1 {
 						<i class="fa fa-map-marker"></i>
 						<p>${transaction.accountWithInstitution} and ${transaction.beneficiaryCustomer.split(",")[1]}</p>
 					</div>
-					<a href="#">Pending</a>
+					<a href="#">${transaction.status}</a>
 				</section>
 			</article>
 	
